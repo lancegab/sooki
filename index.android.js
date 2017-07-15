@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import {Status} from './src/js/components/Status.js';
 
 
-export default class Horde extends Component {
+export default class sooki extends Component {
 
      store = createStore(allReducers, applyMiddleware(thunk));
 
