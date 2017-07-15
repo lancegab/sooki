@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {AppRegistry, Text, TextInput, TouchableOpacity, View, Button} from 'react-native';
 import styles from './styles-android.js';
-import Status from './Status';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import Status from './Status.js';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
 
      onSubmit(){
           //TODO
