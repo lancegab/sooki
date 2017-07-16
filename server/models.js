@@ -8,7 +8,7 @@ const User = database.define('users', {
           autoIncrement: true,
           allowNull: false
      },
-     email: {
+     username: {
           type: Sequelize.STRING,
           unique: true,
           allowNull: false
@@ -71,10 +71,6 @@ const Barcodes = database.define('barcodes', {
           unique: true,
           primaryKey: true,
           autoIncrement: true,
-          references: {
-               model: 'users',
-               key: 'id'
-          },
           allowNull: false
      },
      vendor_id: {
@@ -95,10 +91,74 @@ const Barcodes = database.define('barcodes', {
      }
 }, {timestamps: true});
 
+const Points = database.define('points', {
+     points: {
+          type: Sequelize.INTEGER,
+          allowNull: false
+     },
+     vendor_id: {
+          type: Sequelize.INTEGER,
+          references: {
+               model: 'vendors',
+               key: 'id'
+          },
+          allowNull: false
+     },
+     consumer_id: {
+          type: Sequelize.INTEGER,
+          references: {
+               model: 'consumers',
+               key: 'id'
+          },
+          allowNull: false
+     }
+}, {timestamps: true});
+const Promotions = database.define('promotions', {
+     id: {
+          type: Sequelize.INTEGER,
+          unique: true,
+          primaryKey: true,
+          autoIncrement: true,
+          allowNull: false
+     },
+     vendor_id: {
+          type: Sequelize.INTEGER,
+          references: {
+               model: 'vendors',
+               key: 'id'
+          },
+          allowNull: false
+     },
+     content: {
+          type: Sequelize.STRING,
+          allowNull: false
+     },
+}, {timestamps: true});
+const Receivers = database.define('receivers', {
+     promotion_id: {
+          type: Sequelize.INTEGER,
+          references: {
+               model: 'promotions',
+               key: 'id'
+          },
+          allowNull: false
+     },
+     consumer_id: {
+          type: Sequelize.INTEGER,
+          references: {
+               model: 'consumers',
+               key: 'id'
+          },
+          allowNull: false
+     }
+}, {timestamps: true});
 
-database.sync();
+// database.sync();
 
 module.exports.User = User;
 module.exports.Consumer = Consumer;
 module.exports.Vendor = Vendor;
 module.exports.Barcodes = Barcodes;
+module.exports.Receivers = Receivers;
+module.exports.Points = Points;
+module.exports.Promotions = Promotions;

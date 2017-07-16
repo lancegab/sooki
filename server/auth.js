@@ -3,12 +3,12 @@ const express = require('express');
 const User = require('./models').User;
 
 const router = new express.Router();
-
+/*
 router.post('/signup', function(req, res) {
-
+     console.log('HERE!');
      const username = req.body.username;
      const password = req.body.password;
-     const confirmation = req.body.confirmation;
+     //const confirmation = req.body.confirmation;
 
      const name = req.body.name;
      const type = req.body.type;
@@ -36,7 +36,7 @@ router.post('/signup', function(req, res) {
 			salt: salt
 		}).then(function(newUser) {
                req.session.user = user;
-
+               res.send(newUser);
                if(req.body.type == "consumer"){
                     Consumer.create({
                          id: newUser.id,
@@ -102,4 +102,4 @@ router.get('/signout', function(req, res) {
      req.session.destroy();
 });
 
-module.exports = router;
+module.exports = router;*/

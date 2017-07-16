@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, StatusBar} from 'react-native';
+import {AppRegistry, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, StatusBar,Image} from 'react-native';
 import styles from './styles-android.js'
 
 import {bindActionCreators} from 'redux';
@@ -8,6 +8,9 @@ import Status from './Status.js';
 
 import {signIn} from '../actions/index';
 import {showCamera} from '../actions/index';
+import {newUsername} from '../actions/index';
+import {newPassword} from '../actions/index';
+
 
 import QRCode from 'react-native-qrcode';
 import Barcode from 'react-native-barcode-builder';
@@ -16,37 +19,47 @@ class SignIn extends Component {
      static navigationOptions = {
           header : null
      };
+
+     onSubmit(){
+          //TODO
+          //Grab username and password from input fields
+          //this.props.signIn(document.getElementById('username').value, document.getElementById('password').value);
+          this.props.signIn(this.props.username,this.props.password);
+
+          //navigate('EditProfile');
+     }
+
      render() {
           const { navigate } = this.props.navigation;
 
           return (
                <View style={styles.container}>
-                    <Status />
-                    <Barcode value={"824"} format="CODE128" />
+                    <Image
+        style={{
+          backgroundColor: '#ccc',
+          flex: 1,
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+        }}
+        source={require('./img/bg1.png')}
+   />
+
                     <View style={styles.titleContainer}>
-                         <Text style={styles.welcome}>
-                              Enter the arena.
-                         </Text>
-                         <Text>
-                              {this.props.activeUser}
-                         </Text>
                     </View>
                     <View style={styles.inputContainer}>
-                         <TextInput placeholder = "username" style={styles.input} underlineColorAndroid = "transparent"/>
-                         <TextInput placeholder = "password" style={styles.input} underlineColorAndroid = "transparent" secureTextEntry />
-                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.5} onPress={this.props.signIn}>
+                         <TextInput placeholder = "Username" style={styles.input} onChangeText={(text) => this.props.newUsername(text)} underlineColorAndroid = "transparent"/>
+                         <TextInput placeholder = "Password" style={styles.input} onChangeText={(text) => this.props.newPassword(text)} underlineColorAndroid = "transparent" secureTextEntry />
+
+                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.5} onPress={this.onSubmit.bind(this)}>
                               <Text style={styles.buttonText}>
-                                   Fight!
+                                   Login
                               </Text>
                          </TouchableOpacity>
                          <TouchableOpacity activeOpacity={0.5} onPress={() => navigate('SignUp')}>
                               <Text style={styles.joinText}>
-                                   Join!
-                              </Text>
-                         </TouchableOpacity>
-                         <TouchableOpacity activeOpacity={0.5} onPress={() => {navigate('Scanner'); this.props.showCamera()}}>
-                              <Text style={styles.joinText}>
-                                   Try Scanning!
+                                   Join
                               </Text>
                          </TouchableOpacity>
                     </View>
@@ -57,14 +70,18 @@ class SignIn extends Component {
 
 function mapStateToProps(state) {
      return {
-          activeUser: state.activeUser
+          activeUser: state.activeUser,
+          username: state.username,
+          password: state.password
      }
 }
 
 function matchDispatchToProps(dispatch) {
      return bindActionCreators({
           signIn: signIn,
-          showCamera: showCamera
+          showCamera: showCamera,
+          newUsername: newUsername,
+          newPassword: newPassword
 
      }, dispatch);
 }

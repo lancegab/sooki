@@ -1,12 +1,15 @@
 import axios from 'axios';
 
-export const signUp = (username,password) => {
+export const signUp = (username,password, name, type, avatar) => {
      var obj = {
           username: username,
-          password: password
+          password: password,
+          name: name,
+          type: type,
+          avatar: avatar
      }
 
-     const request = axios.post('/sign_up', obj);
+     const request = axios.post('http://192.168.8.103:3003/signup', obj);
 
      return (dispatch) => {
           request.then(({data}) => {
@@ -14,6 +17,116 @@ export const signUp = (username,password) => {
           })
      }
 }
+//http://192.168.43.233:3003/testQuery
+export const signIn = (username,password) => {
+     var obj = {
+          username: username,
+          password: password
+     }
+     const request = axios.post('http://192.168.8.103:3003/signin', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({type: 'SIGN_IN', payload: data});
+          })
+     }
+}
+
+export const getCutomers = (vendor_id) => {
+     var obj = {
+          id: vendor_id
+     }
+     const request = axios.post('http://192.168.8.103:3003/getCustomers', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({type: 'FIND_CUSTOMERS', payload: data});
+          })
+     }
+}
+
+export const getVendors = (customer_id) => {
+     var obj = {
+          id: customer_id
+     }
+     const request = axios.post('http://192.168.8.103:3003/getVendors', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({type: 'FIND_VENDORS', payload: data});
+          })
+     }
+}
+
+
+export const getCustomerList = (vendor) => {
+    var obj = {
+         id: vendor.id
+    }
+     const request = axios.post('http://192.168.8.103:3003/getConsumers', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({
+                    type: 'GET_CUSTOMER_LIST',
+                    payload: data
+               });
+          })
+     }
+}
+
+export const getVendorList = (consumer) => {
+    var obj = {
+         id: consumer.id
+    }
+     const request = axios.post('http://192.168.8.103:3003/pointsPerStore', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({
+                    type: 'GET_VENDOR_LIST',
+                    payload: data
+               });
+          })
+     }
+}
+
+
+export const newUsername = (username) => {
+     return {
+          type: 'NEW_USERNAME',
+          payload: username
+     }
+}
+
+export const newPassword = (password) => {
+     return {
+          type: 'NEW_PASSWORD',
+          payload: password
+     }
+}
+
+export const newAvatar = (avatar) => {
+     return {
+          type: 'NEW_AVATAR',
+          payload: avatar
+     }
+}
+
+export const newName = (name) => {
+     return {
+          type: 'NEW_NAME',
+          payload: name
+     }
+}
+
+export const newType = (type) => {
+     return {
+          type: 'NEW_TYPE',
+          payload: type
+     }
+}
+
 
 export const testAction = () => {
      return {
@@ -22,13 +135,21 @@ export const testAction = () => {
      }
 }
 
-export const confirmScan = (data) => {
-     return {
-          type: 'NEW_SCAN',
-          payload: {
-                    vendor: 'Baker Bob',
-                    amount: data
-                    }
+export const confirmScan = (consumer_id, points, vendor_id) => {
+     var obj = {
+         consumer_id: consumer_id,
+         points: points,
+         vendor_id: vendor_id
+    }
+     const request = axios.post('http://192.168.8.103:3003/submitBarcode', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({
+                    type: 'NEW_SCAN',
+                    payload: data
+               });
+          })
      }
 }
 
@@ -50,20 +171,5 @@ export const hideCamera = () => {
      return {
           type: 'HIDE_CAMERA',
           payload: ''
-     }
-}
-
-
-export const signIn = (username,password) => {
-     var obj = {
-          username: username,
-          password: password
-     }
-     const request = axios.post('/sign_in', obj);
-
-     return (dispatch) => {
-          request.then(({data}) => {
-               dispatch({type: 'SIGN_IN', payload: data});
-          })
      }
 }

@@ -1,15 +1,22 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+     backgroundImage: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'cover'
+    },
      container: {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          // backgroundColor: '#4d88ff'
-          backgroundColor: 'steelblue'
 
      },
      titleContainer: {
+
+          marginTop: -70,
+          flexDirection: 'row',
           flex: 1,
           // height: 200,
           justifyContent: 'center',
@@ -29,26 +36,58 @@ const styles = StyleSheet.create({
      input: {
           padding: 10,
           fontSize: 18,
-          color: '#ffffff',
+          color: 'black',
           backgroundColor: 'rgba(255,255,255,0.2)',
           width: 275,
           height: 40,
           marginBottom: 10,
      },
      buttonContainer: {
-          backgroundColor: '#66ff66',
+          backgroundColor: '#FF5733',
           alignItems: 'center',
           padding: 10,
-          borderRadius: 30,
+          borderRadius: 20,
           width: 80,
           marginTop: 10,
      },
+     buttonRow:{
+          marginTop: 10,
+          borderRadius: 20,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+     },
+     buttonContainer2: {
+          paddingTop: 6,
+          paddingBottom: 6,
+          paddingRight: 7,
+          paddingLeft: 7,
+          alignItems: 'center',
+          marginLeft: 5,
+          marginRight: 5,
+          marginTop: 10,
+          borderRadius: 20,
+          width: 90,
+          backgroundColor: '#FF9B86'
+     },
+     buttonContainer1: {
+          paddingTop: 6,
+          paddingBottom: 6,
+          paddingRight: 7,
+          paddingLeft: 7,
+          alignItems: 'center',
+          marginTop: 10,
+          borderRadius: 20,
+          width: 90,
+          backgroundColor: '#FF5733'
+     },
      buttonText: {
+          color: '#FFD4CB',
           fontSize: 18,
-          borderRadius: 50,
           fontWeight: 'bold'
      },
      joinText: {
+          color: '#FFD4CB',
           fontSize: 18,
           borderRadius: 50,
           fontWeight: 'bold',
@@ -71,6 +110,20 @@ const styles = StyleSheet.create({
           justifyContent: 'flex-end',
           alignItems: 'center'
      },
+     avatar: {
+          flex: 1,
+       alignItems: 'center'
+     },
+     upper: {
+          alignItems: 'center',
+          marginTop: 40
+     },
+     left: {
+          alignItems: 'flex-end',
+          marginTop : 50,
+          // marginLeft: -200,
+     },
+
      capture: {
           flex: 0,
           backgroundColor: '#fff',
