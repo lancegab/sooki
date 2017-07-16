@@ -3,7 +3,9 @@ import {AppRegistry, StyleSheet, Text, TextInput, TouchableOpacity, View, Button
 import styles from './styles-android.js'
 
 export default class BarcodeGen extends Component {
+     generate(){
 
+     }
      static navigationOptions = {
           header:null
      };
@@ -20,11 +22,11 @@ export default class BarcodeGen extends Component {
                          justifyContent: 'center',
                        }}
                        source={require('./img/bg.png')}
-                  />
+                    />
                     <View style={styles.inputContainer}>
                          <TextInput placeholder = "Price" style={styles.input} underlineColorAndroid = "transparent"/>
                          <TouchableOpacity style={styles.buttonContainer2} activeOpacity={0.5}>
-                              <Text style={styles.buttonText}>
+                              <Text style={styles.buttonText} onPress={this.generate()}>
                                    GENERATE
                               </Text>
                          </TouchableOpacity>

@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image} from 'react-native';
-import styles from './styles-android.js'
+import styles from './styles-android.js';
+import {newAccount} from '../actions/index';
+import {newAmount} from '../actions/index';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 class Payment extends Component {
 
@@ -21,8 +25,8 @@ class Payment extends Component {
                     source={require('./img/bg.png')}
                     />
 
-                    <TextInput placeholder = "Account Number" style={styles.input} onChangeText={(text) => this.props.newUsername(text)} underlineColorAndroid = "transparent"/>
-                    <TextInput placeholder = "Amount" style={styles.input} onChangeText={(text) => this.props.newUsername(text)} underlineColorAndroid = "transparent"/>
+                    <TextInput placeholder = "Account Number" style={styles.input} onChangeText={(text) => this.props.newAccount(text)} underlineColorAndroid = "transparent"/>
+                    <TextInput placeholder = "Amount" style={styles.input} onChangeText={(text) => this.props.newAmount(text)} underlineColorAndroid = "transparent"/>
 
                     <View style={styles.inputContainer}>
                          <TouchableOpacity style={styles.buttonContainer2} activeOpacity={0.5}>
@@ -37,4 +41,19 @@ class Payment extends Component {
 }
 
 
-export default Payment;
+function mapStateToProps(state) {
+     return {
+          activeUser: state.activeUser,
+          account: state.account,
+          amount: state.amount
+     }
+}
+
+function matchDispatchToProps(dispatch) {
+     return bindActionCreators({
+          newAccount: newAccount,
+          newAmount: newAmount
+     }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Payment);

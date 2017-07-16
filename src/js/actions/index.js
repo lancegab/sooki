@@ -1,5 +1,21 @@
 import axios from 'axios';
 
+export const payBill = (amount, account) => {
+
+     var obj = {
+          amount: amount,
+          account: account,
+     }
+
+     const request = axios.post('http://192.168.8.103:3003/payBill', obj);
+
+     return (dispatch) => {
+          request.then(({data}) => {
+               dispatch({type: '', payload: ''})
+          })
+     }
+}
+
 export const signUp = (username,password, name, type, avatar) => {
      var obj = {
           username: username,
@@ -127,6 +143,19 @@ export const newType = (type) => {
      }
 }
 
+export const newAccount = (account) => {
+     return {
+          type: 'NEW_ACCOUNT',
+          payload: account
+     }
+}
+
+export const newAmount = (amount) => {
+     return {
+          type: 'NEW_AMOUNT',
+          payload: amount
+     }
+}
 
 export const testAction = () => {
      return {

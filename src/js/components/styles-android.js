@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
           marginRight: 5,
           marginTop: 10,
           borderRadius: 20,
-          width: 90,
+          width: 100,
           backgroundColor: '#FF9B86'
      },
      buttonContainer1: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           marginTop: 10,
           borderRadius: 20,
-          width: 90,
+          width: 100,
           backgroundColor: '#FF5733'
      },
      buttonText: {

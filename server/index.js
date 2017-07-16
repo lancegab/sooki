@@ -12,7 +12,7 @@ const Barcodes = require('./models').Barcodes;
 const Receivers = require('./models').Receivers;
 const Points = require('./models').Points;
 const Promotions = require('./models').Promotions;
-
+const request = require("request");
 const bcrypt = require('bcrypt');
 var app = express();
 
@@ -22,6 +22,62 @@ app.use(express.static('static'));
 //app.use(require('./auth'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.post('/payBill', function(req, res){
+	//app transfers funds to user
+	//user pays bill
+	const src_account = req.body.account;
+	const transfer_amount = req.body.transfer_amount;
+	const user_amount = req.body.user_amount;
+
+	var transfer = { method: 'POST',
+	  url: 'https://api-uat.unionbankph.com/uhac/sandbox/transfers/initiate',
+	  headers:
+	   { accept: 'application/json',
+	     'content-type': 'application/json',
+		 'x-ibm-client-secret': 'aD1fY6wN3jM5hJ1nR4eJ6dC7cO6sF4sQ0mD5iG4jE2rX7lY7iD',
+	     'x-ibm-client-id': '7ba20b06-d382-4922-87fc-032471fd5ad6' },
+	  body:
+	   { channel_id: 'UHAC_TEAM',
+	     transaction_id: '001',
+	     source_account: '101361546887',
+	     source_currency: 'PHP',
+	     target_account: src_account,
+	     target_currency: 'PHP',
+	     amount: transfer_amount },
+	  json: true };
+
+	const pay_amount = transfer_amount + user_amount;
+
+	var pay = { method: 'POST',
+	  url: 'https://api-uat.unionbankph.com/uhac/sandbox/payments/initiate',
+	  headers:
+	   { accept: 'application/json',
+	     'content-type': 'application/json',
+	     'x-ibm-client-secret': 'aD1fY6wN3jM5hJ1nR4eJ6dC7cO6sF4sQ0mD5iG4jE2rX7lY7iD',
+	     'x-ibm-client-id': '7ba20b06-d382-4922-87fc-032471fd5ad6' },
+	  body:
+	   { channel_id: 'UHAC_TEAM',
+	     transaction_id: '001',
+	     source_account: src_account,
+	     source_currency: 'PHP',
+	     biller_id: 'ELEC',
+	     reference1: 'sample string 1',
+	     reference2: 'sample string 2',
+	     reference3: 'sample string 3',
+	     amount: pay_amount },
+	  json: true };
+
+	  request(transfer, function (error, response, body) {
+	    if (error) return console.error('Failed: %s', error.message);
+	    console.log('Success: ', body);
+	  });
+
+	  request(pay, function (error, response, body) {
+	    if (error) return console.error('Failed: %s', error.message);
+	    console.log('Success: ', body);
+	  });
+}
 
 app.post('/signup', function(req, res) {
      console.log('HERE!');

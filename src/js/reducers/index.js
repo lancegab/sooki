@@ -10,6 +10,8 @@ import VendorListReducer from './reducer-vendor-list';
 import TypeReducer from './reducer-type';
 import AvatarReducer from './reducer-avatar';
 import NameReducer from './reducer-name';
+import AccountReducer from './reducer-account'
+import AmountReducer from './reducer-amount'
 
 
 
@@ -25,7 +27,9 @@ const allReducers = combineReducers({
      vendorList: VendorListReducer,
      type: TypeReducer,
      avatar: AvatarReducer,
-     name: NameReducer
+     name: NameReducer,
+     amount: AmountReducer,
+     account: AccountReducer
 });
 
 export default allReducers;
